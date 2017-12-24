@@ -40,8 +40,8 @@ void ATankPlayerController::AimTowardsCrosshair()
    //get world location of line-trace through the crosshair
    if (GetSightRayHitLocation(HitLocation))  //has a "side-effect", is going to line-trace
    {
-      UE_LOG(LogTemp, Warning, TEXT("Hit location: %s"), *HitLocation.ToString());
-         //TODO Tell controlled tank to aim at this point
+      //TODO Tell controlled tank to aim at this point
+      GetControlledTank()->AimAt(HitLocation);
    }
 }
 
