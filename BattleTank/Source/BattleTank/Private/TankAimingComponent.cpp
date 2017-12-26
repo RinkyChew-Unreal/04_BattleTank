@@ -35,8 +35,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
       LaunchSpeed,
       false,   //default
       0.0f,    //default
-      0.0f,    //default
-      ESuggestProjVelocityTraceOption::DoNotTrace
+      0.0f ,   //default
+      ESuggestProjVelocityTraceOption::DoNotTrace  //PARAMETER MUST BE PRESENT TO PREVENT BUG - BEN REPORTED BUG
    );
 
    //if we calculate the OutLaunchVelocity
