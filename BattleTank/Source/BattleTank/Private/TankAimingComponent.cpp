@@ -22,8 +22,6 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-   UE_LOG(LogTemp, Warning, TEXT("In AimAt"));
-
    if (!Barrel) { return; }
 
    FVector OutLaunchVelocity;
@@ -44,7 +42,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
    //if we calculate the OutLaunchVelocity
    if (bHaveAimSolution)
    {
-      UE_LOG(LogTemp, Warning, TEXT("In AimAt found solution"));
       auto AimDirection = OutLaunchVelocity.GetSafeNormal();
       MoveBarrelTowards(AimDirection);
    }
