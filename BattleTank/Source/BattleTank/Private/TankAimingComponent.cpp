@@ -11,7 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
    // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
    // off to improve performance if you don't need them.
-   PrimaryComponentTick.bCanEverTick = true; //TODO should this really Tick?
+   PrimaryComponentTick.bCanEverTick = false;
 
    // ...
 }
@@ -72,6 +72,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
    auto DeltaRotator = AimAsRotator - BarrelRotator;
 
    Barrel->Elevate(DeltaRotator.Pitch);
+   Turret->Rotate(DeltaRotator.Yaw);
 }
 
 
