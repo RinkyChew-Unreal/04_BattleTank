@@ -58,10 +58,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector & OutHitLocation) con
    if (GetLookDirection(ScreenLocation, LookDirection))
    {
       //line-trace along that LookDirection, and see what we hit (up to a max range)
-      return GetLookVectorHitLocation(LookDirection, OutHitLocation);
+      return GetLookVectorHitLocation(LookDirection, OutHitLocation);   //Changed to return this IAW section 141 ? answer
    }
 
-   return false;
+   return false;  //Changed from true IAW section 141 ? answer - This keeps barrel at angle of last good solution
 }
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const
@@ -74,7 +74,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
          HitResult,
          StartLocation,
          EndLocation,
-         ECC_Visibility
+         ECollisionChannel::ECC_Visibility
       )
    )
    {
