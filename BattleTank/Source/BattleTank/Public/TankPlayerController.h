@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright RinkyChew LLC
 
 #pragma once
 
@@ -6,10 +6,12 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"  //the *.generated.h must be the last include
 
-//Forward Declaration
+//Forward Declarations
 class ATank;
+class UTankAimingComponent;
+
 /**
- * 
+ * Responsible for helping the player aim.
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -23,7 +25,10 @@ public:
 
 protected:
    UFUNCTION(BlueprintCallable, Category = "Setup")
-      ATank* GetControlledTank() const;
+   ATank* GetControlledTank() const;
+
+   UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+   void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
 
 private:
    //start the tank moving the barrel so that a shot would hit where
@@ -45,5 +50,4 @@ private:
 
    UPROPERTY(EditDefaultsOnly)
    float LineTraceRange = 1000000.0f;
-
 };
