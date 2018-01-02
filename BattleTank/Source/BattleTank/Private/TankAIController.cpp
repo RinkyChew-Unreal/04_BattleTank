@@ -4,6 +4,8 @@
 #include "Tank.h"
 #include "TankAIController.h"
 
+// Depends on MovementComponent via pathfinding system
+
 void ATankAIController::BeginPlay()
 {
    Super::BeginPlay();
