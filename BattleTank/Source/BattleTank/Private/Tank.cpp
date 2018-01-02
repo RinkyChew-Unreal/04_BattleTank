@@ -16,7 +16,7 @@ ATank::ATank()
    PrimaryActorTick.bCanEverTick = false;
 
    auto TankName = GetName();
-   UE_LOG(LogTemp, Warning, TEXT("DONKEY: In Tank Constructor for %s"), *TankName);
+   UE_LOG(LogTemp, Warning, TEXT("DONKEY: In Tank C++ Constructor for %s"), *TankName);
 }
 
 // Called when the game starts or when spawned
@@ -25,7 +25,7 @@ void ATank::BeginPlay()
    Super::BeginPlay();  //required to BP BeginPlay() to be called to run!!!
    
    auto TankName = GetName();
-   UE_LOG(LogTemp, Warning, TEXT("DONKEY: In Tank BeginPlay for %s"), *TankName);
+   UE_LOG(LogTemp, Warning, TEXT("DONKEY: In Tank C++ BeginPlay for %s"), *TankName);
 }
 
 void ATank::AimAt(FVector HitLocation)
