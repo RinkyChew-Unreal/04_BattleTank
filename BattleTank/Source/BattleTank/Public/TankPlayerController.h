@@ -50,4 +50,4 @@ private:
 
    UPROPERTY(EditDefaultsOnly)
    float LineTraceRange = 1000000.0f;
-};
+ };

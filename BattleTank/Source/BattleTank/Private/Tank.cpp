@@ -24,21 +24,22 @@ void ATank::BeginPlay()
 {
    Super::BeginPlay();  //required to BP BeginPlay() to be called to run!!!
    
-   auto TankName = GetName();
+  auto TankName = GetName();
    UE_LOG(LogTemp, Warning, TEXT("DONKEY: In Tank C++ BeginPlay for %s"), *TankName);
 }
 
 void ATank::AimAt(FVector HitLocation)
 {
-   if (!TankAimingComponent) { return; }
+   if (!ensure(TankAimingComponent)) { return; }
    TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void ATank::Fire()
 {
+   if (!ensure(Barrel)) { return; }
    auto Time = GetWorld()->GetTimeSeconds();
    bool bIsReloaded = (Time - LastFireTime) > ReloadTimeInSeconds;
-   if (Barrel && bIsReloaded)
+   if (bIsReloaded)
    {
       //spawn a projectile at the socket location on the barrel
       auto Projectile = GetWorld()->SpawnActor<AProjectile>
