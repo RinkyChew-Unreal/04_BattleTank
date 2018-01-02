@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright RinkyChew LLC
 
 #pragma once
 
@@ -25,12 +25,8 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
    GENERATED_BODY()
 
 public:	
-   // Sets default values for this component's properties
-   UTankAimingComponent();
-
-   void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-   void SetTurretReference(UTankTurret* TurretToSet);
+   UFUNCTION(BlueprintCallable, Category = "Setup")
+   void Initialize(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet);
 
    void AimAt(FVector HitLocation, float LaunchSpeed);
 
@@ -39,10 +35,11 @@ protected:
    EFiringStatus FiringStatus = EFiringStatus::Reloading;
 
 private:
-   UTankBarrel* Barrel = nullptr;
+   // Sets default values for this component's properties
+   UTankAimingComponent();
 
+   UTankBarrel* Barrel = nullptr;
    UTankTurret* Turret = nullptr;
 
    void MoveBarrelTowards(FVector AimDireection);
-
 };
