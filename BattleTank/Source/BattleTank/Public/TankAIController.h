@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright RinkyChew LLC
 
 #pragma once
 
@@ -6,12 +6,11 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-//Forward Declaration
-class ATank;
-class UTankMovementComponent;
+//Forward Declarations
+
 
 /**
- * 
+ * Responsible for calling AI Tank Aiming
  */
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
@@ -25,6 +24,4 @@ private:
 
    //how close can the AI tank get
    float AcceptanceRadius = 3000;
-
-public:
 };
