@@ -27,7 +27,7 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 //called by NavMeshAgent
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
 {
-   UE_LOG(LogTemp, Warning, TEXT("I'm here"));
+   //UE_LOG(LogTemp, Warning, TEXT("I'm here"));
 
    //no need to call Super as we're replacing the functionality of the method
    auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
