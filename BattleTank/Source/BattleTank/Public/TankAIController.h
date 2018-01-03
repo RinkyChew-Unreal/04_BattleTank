@@ -6,8 +6,6 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-//Forward Declarations
-
 
 /**
  * Responsible for calling AI Tank Aiming
