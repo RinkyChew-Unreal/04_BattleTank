@@ -1,65 +1,64 @@
-// Copyright RinkyChew LLC
+// Copyright EmbraceIT Ltd.
 
 #pragma once
 
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
-//Enum for aiming state
+// Enum for aiming state
 UENUM()
-enum class EFiringStatus : uint8
+enum class EFiringState : uint8
 {
-   Reloading,
-   Aiming,
-   Locked
+	Reloading,
+	Aiming,
+	Locked
 };
 
-//forward declaration
-class UTankBarrel;   
+// Forward Declaration
+class UTankBarrel;
 class UTankTurret;
 class AProjectile;
 
-//holds Barrel's properties and Elevate method
+// Holds barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
-   GENERATED_BODY()
+	GENERATED_BODY()
 
 public:	
-   UFUNCTION(BlueprintCallable, Category = "Setup")
-   void Initialize(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet);
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+	
+	void AimAt(FVector HitLocation);
 
-   UFUNCTION(BlueprintCallable, Category = "Firing")
-   void Fire();
-
-   void AimAt(FVector HitLocation);
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
 
 protected:
-   UPROPERTY(BlueprintReadOnly, Category = "State")
-   EFiringStatus FiringStatus = EFiringStatus::Aiming;
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState = EFiringState::Reloading;
 
 private:
-   // Sets default values for this component's properties
-   UTankAimingComponent();
+	// Sets default values for this component's properties
+	UTankAimingComponent();
 
-   virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 
-   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
-   
-   void MoveBarrelTowards(FVector AimDireection);
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-   UPROPERTY(EditDefaultsOnly, Category = "Setup")
-   TSubclassOf<AProjectile> ProjectileBlueprint;
+	void MoveBarrelTowards(FVector AimDirection);
 
-   UPROPERTY(EditDefaultsOnly, Category = "Firing")
-   float LaunchSpeed = 4000.0f;
+	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 
-   UTankBarrel* Barrel = nullptr;
-   UTankTurret* Turret = nullptr;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
 
-   UPROPERTY(EditDefaultsOnly, Category = "Firing")
-   float ReloadTimeInSeconds = 3.0f;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeInSeconds = 3;
 
-   float LastFireTime = 0.0f;
-
+	double LastFireTime = 0;
 };

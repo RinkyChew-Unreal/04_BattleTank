@@ -1,13 +1,11 @@
-// Copyright RinkyChew LLC
+// Copyright EmbraceIT Ltd.
 
 #pragma once
 
-
 #include "GameFramework/PlayerController.h"
-#include "TankPlayerController.generated.h"  //the *.generated.h must be the last include
+#include "TankPlayerController.generated.h" // Must be the last include
 
-//Forward Declarations
-class UTankAimingComponent;
+class UTankTankAimingComponent;
 
 /**
  * Responsible for helping the player aim.
@@ -15,35 +13,33 @@ class UTankAimingComponent;
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
-   GENERATED_BODY()
-   
-public:
-   virtual void BeginPlay() override;
-
-   virtual void Tick(float DeltaSeconds) override;
+	GENERATED_BODY()
 
 protected:
-   UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
-   void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
 private:
-   //start the tank moving the barrel so that a shot would hit where
-   //the crosshair intersects the world
-   void AimTowardsCrosshair();
+	virtual void BeginPlay() override;
 
-   //return and out parameter, returns true if hits landscape
-   bool GetSightRayHitLocation(FVector & OutHitLocation) const;
+	virtual void Tick( float DeltaTime ) override;
 
-   bool GetLookVectorHitLocation(FVector LookDirection, FVector & OutHitLocation) const;
+	// Start the tank moving the barrel so that a shot would hit where
+	// the crosshair intersects the world
+	void AimTowardsCrosshair();
 
-   bool GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const;
+	// Return an OUT parameter, true if hit landscape
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 
-   UPROPERTY(EditDefaultsOnly)
-   float CrosshairXLocation = 0.5f;
+	UPROPERTY(EditDefaultsOnly)
+	float CrosshairXLocation = 0.5;
 
-   UPROPERTY(EditDefaultsOnly)
-   float CrosshairYLocation = 0.3333f;
+	UPROPERTY(EditDefaultsOnly)
+	float CrosshairYLocation = 0.3333;
 
-   UPROPERTY(EditDefaultsOnly)
-   float LineTraceRange = 1000000.0f;
- };
+	UPROPERTY(EditDefaultsOnly)
+	float LineTraceRange = 1000000;
+
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+};
