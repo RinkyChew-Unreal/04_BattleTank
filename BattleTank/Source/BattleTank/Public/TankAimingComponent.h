@@ -9,9 +9,9 @@
 UENUM()
 enum class EFiringState : uint8
 {
-   Reloading,
-   Aiming,
-   Locked
+	Reloading,
+	Aiming,
+	Locked
 };
 
 // Forward Declaration
@@ -23,45 +23,48 @@ class AProjectile;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
-   GENERATED_BODY()
+	GENERATED_BODY()
 
 public:	
-   UFUNCTION(BlueprintCallable, Category = "Setup")
-   void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
-   
-   void AimAt(FVector HitLocation);
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+	
+	void AimAt(FVector HitLocation);
 
-   UFUNCTION(BlueprintCallable, Category = "Firing")
-   void Fire();
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
+
+	EFiringState GetFiringState() const;
 
 protected:
-   UPROPERTY(BlueprintReadOnly, Category = "State")
-   EFiringState FiringState = EFiringState::Reloading;
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState = EFiringState::Reloading;
 
 private:
-   // Sets default values for this component's properties
-   UTankAimingComponent();
+	// Sets default values for this component's properties
+	UTankAimingComponent();
 
-   virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 
-   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-   void MoveBarrelTowards(FVector AimDirection);
+	void MoveBarrelTowards(FVector AimDirection);
 
-   bool IsBarrelMoving();
+	bool IsBarrelMoving();
 
-   UTankBarrel* Barrel = nullptr;
-   UTankTurret* Turret = nullptr;
+	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 
-   UPROPERTY(EditDefaultsOnly, Category = "Firing")
-   float LaunchSpeed = 8000;
-   
-   UPROPERTY(EditDefaultsOnly, Category = "Setup")
-   TSubclassOf<AProjectile> ProjectileBlueprint;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
 
-   UPROPERTY(EditDefaultsOnly, Category = "Firing")
-   float ReloadTimeInSeconds = 3.0f;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeInSeconds = 3;
 
-   FVector AimDirection = FVector(0);
-   float LastFireTime = 0.0f;
+	double LastFireTime = 0;
+
+	FVector AimDirection;
 };
