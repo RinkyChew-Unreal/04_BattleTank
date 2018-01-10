@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright RinkyChew LLC
 
 #include "BattleTank.h"
 #include "Projectile.h"
@@ -24,6 +24,10 @@ AProjectile::AProjectile()
    ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
    ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
    ImpactBlast->bAutoActivate = false;
+
+   ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion Force"));
+   ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+   //ExplosionForce->bAutoActivate = false;
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +41,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 {
    LaunchBlast->Deactivate();
    ImpactBlast->Activate();
+   ExplosionForce->FireImpulse();
 }
 
 void AProjectile::LaunchProjectile(float Speed)
