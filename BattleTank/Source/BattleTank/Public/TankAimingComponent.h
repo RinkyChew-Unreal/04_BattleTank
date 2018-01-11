@@ -28,7 +28,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 public:	
    UFUNCTION(BlueprintCallable, Category = "Setup")
-   void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+   void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
    
    void AimAt(FVector HitLocation);
 

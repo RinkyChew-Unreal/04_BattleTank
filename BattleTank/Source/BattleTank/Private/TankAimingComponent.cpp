@@ -22,7 +22,7 @@ void UTankAimingComponent::BeginPlay()
    LastFireTime = FPlatformTime::Seconds();
 }
 
-void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
    Barrel = BarrelToSet;
    Turret = TurretToSet;
