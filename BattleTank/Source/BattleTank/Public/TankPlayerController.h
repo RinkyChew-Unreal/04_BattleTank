@@ -1,4 +1,4 @@
-// Copyright EmbraceIT Ltd.
+// Copyright RinkyChew LLC
 
 #pragma once
 

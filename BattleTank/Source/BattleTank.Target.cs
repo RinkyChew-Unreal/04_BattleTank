@@ -5,21 +5,14 @@ using System.Collections.Generic;
 
 public class BattleTankTarget : TargetRules
 {
-	public BattleTankTarget(TargetInfo Target)
-	{
-		Type = TargetType.Game;
-	}
+   public BattleTankTarget(TargetInfo Target) : base(Target)
+   {
+      Type = TargetType.Game;
 
-	//
-	// TargetRules interface.
-	//
+      ExtraModuleNames.Add("BattleTank");
+   }
 
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.AddRange( new string[] { "BattleTank" } );
-	}
+   //
+   // TargetRules interface.
+   //
 }
