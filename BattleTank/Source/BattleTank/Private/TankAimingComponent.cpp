@@ -61,14 +61,14 @@ int32 UTankAimingComponent::GetRoundsLeft() const
 
 bool UTankAimingComponent::IsBarrelMoving()
 {
-   if (!ensure(Barrel)) { return false; }
+   if (!ensure(Barrel)) { return false; } //TODO remove ensure if all is OK
    auto BarrelForward = Barrel->GetForwardVector();
    return !BarrelForward.Equals(AimDirection, 0.01); // vectors are equal
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
-   if (!ensure(Barrel)) { return; }
+   if (!ensure(Barrel)) { return; } //TODO remove ensure if all is OK
 
    FVector OutLaunchVelocity;
    FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -95,7 +95,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-   if (!ensure(Barrel) || !ensure(Turret)) { return; }
+   if (!ensure(Barrel) || !ensure(Turret)) { return; }   //TODO remove ensure if all is OK
 
    // Work-out difference between current barrel rotation, and AimDirection
    auto BarrelRotator = Barrel->GetForwardVector().Rotation();
@@ -120,8 +120,8 @@ void UTankAimingComponent::Fire()
    if (FiringState == EFiringState::Locked || FiringState == EFiringState::Aiming)
    {
       // Spawn a projectile at the socket location on the barrel
-      if (!ensure(Barrel)) { return; }
-      if (!ensure(ProjectileBlueprint)) { return; }
+      if (!ensure(Barrel)) { return; } //TODO remove ensure if all is OK
+      if (!ensure(ProjectileBlueprint)) { return; }   //TODO remove ensure if all is OK
       auto Projectile = GetWorld()->SpawnActor<AProjectile>(
          ProjectileBlueprint,
          Barrel->GetSocketLocation(FName("Projectile")),

@@ -16,6 +16,12 @@ ATank::ATank()
    PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATank::BeginPlay()
+{
+   Super::BeginPlay();  //DON'T FORGET THIS!! (on all overrides) MAKES WEIRD THINGS BREAK!!
+   CurrentHealth = StartingHealth;
+}
+
 float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
 {
    int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);

@@ -18,7 +18,7 @@ void ATankAIController::SetPawn(APawn * InPawn)
    if (InPawn)
    {
       auto PossessedTank = Cast<ATank>(InPawn);
-      if (!ensure(PossessedTank)) { return; }
+      if (!ensure(PossessedTank)) { return; }   //TODO remove ensure if all is OK
 
       //subscribe our local method to the tank's Death event
       PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnPossessedTankDeath);
@@ -28,7 +28,8 @@ void ATankAIController::SetPawn(APawn * InPawn)
 //our event handler
 void ATankAIController::OnPossessedTankDeath()
 {
-   UE_LOG(LogTemp, Warning, TEXT("Received!"));
+   if (!ensure(GetPawn())) { return; } //TODO remove ensure if all is OK
+   GetPawn()->DetachFromControllerPendingDestroy();
 }
 
 // Called every frame
@@ -39,7 +40,7 @@ void ATankAIController::Tick(float DeltaTime)
    auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
    auto ControlledTank = GetPawn();
 
-   if (!ensure(PlayerTank && ControlledTank)) { return; }
+   if (!ensure(PlayerTank && ControlledTank)) { return; }   //TODO remove ensure if all is OK
    
    // Move towards the player
    MoveToActor(PlayerTank, AcceptanceRadius); // TODO check radius is in cm
